@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block body %}
+
+<head>
+<title>Contact</title>
+</head>
+
+<!------ Include the above in your HEAD tag ---------->
+                <div class="container">
+                    <div class="row">
+                      <div class="col-md-6 col-md-offset-3">
+                        <div class="well well-sm">
+                          <form class="form-horizontal" role="form" action="" method="post">
+                          <fieldset>
+                            <legend class="text-center"><h1>Contact</h1></legend>
+
+                            <div class="form-group col-md-5 col-md-offset-5">
+                    
+                                {% csrf_token %}
+                                {{ form.as_p }}
+
+                            </div>
+                                <!-- Form actions -->
+                                <div class="form-group">
+                                <div class="col-md-12 text-right">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form></div></div></div></div>
+
+
+                <script src="//netdna.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+                <script src="//code.jquery.com/jquery-3.4.0.min.js"></script>
+
+                {% endblock body %}

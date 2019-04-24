@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{%  if not request.user.is_authenticated %}
+        <p  align="center" class="lead btn-basic" align="left" ><a href="{% url 'user:login' %}" class="btn btn-link">Sign-in</a> or 
+          <a href="{% url 'user:register' %}" class="btn btn-link">Register</a> to Add/post Articles</p>
+
+      {% endif %}
+
+<div class ="row">
+    
+        <div class="col-md-10 offset-md-3">
+            <div class="col-lg-8">
+                <h3>Articles</h3>
+                <hr>
+                </div>
+        </div>
+</div>
+<div class ="row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+            <form method="POST">
+                 {% csrf_token %} 
+                <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Find articles...">
+              <button type="submit" class="btn btn-primary">Find</button>
+            </form>
+      </div>
+    </div>
+
+</div>
+
+
+{% if articles %}
+
+{% for article in articles %}
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <a href="{% url 'article:detail' article.id %}"><h2 class="mt-4">{{article.title}}</h2></a> 
+        
+      <!-- Author -->
+      <p class="lead">
+        
+        Published by {{article.author.username}}
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+      <p>{{article.created_date}}</p>
+      <hr>
+      <!-- Preview Image -->
+      {% if article.article_image %}
+      <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}"></a>
+      {% endif %}
+     
+
+      <!-- <hr> -->
+
+      <!-- Post Content -->
+      <p class="lead">
+          {{article.content|safe|truncatewords:55}}
+      </p>
+
+      <a style ="float : right;" href="{% url 'article:detail' article.id %}" class ="btn btn-primary">Read more..</a>
+         
+      </div>
+      </div>
+      </div>
+
+{% endfor %}
+
+
+{% else %}
+
+<div class ="row">
+    
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+<div class = "alert alert-danger">
+   Article not found
+
+
+<div align="right"> <a href="{% url 'article:dashboard'  %}" class="btn btn-info">Add Articles</a> 
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+{% endif %}
+
+<!-- show this if user is login -->
+      
+      {%  if not request.user.is_authenticated %}
+      <hr>
+        <marquee bgcolor='oldlace'><p class="lead" align="left" ><a href="{% url 'user:login' %}" class="btn btn-link">Sign-in</a> or 
+          <a href="{% url 'user:register' %}" class="btn btn-link">Register</a> to Add/post Articles</p></marquee>
+
+      {% endif %}
+{% endblock body %}

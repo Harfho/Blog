@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme Simply Me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+    background-color: #1abc9c; /* Green */
+    color: #ffffff;
+  }
+  .bg-2 { 
+    background-color: #474e5d; /* Dark Blue */
+    color: #ffffff;
+  }
+  .bg-3 { 
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+  .bg-4 { 
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+  }
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
+  </style>
+</head>
+
+<!-- Navbar -->
+
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <h3 class="margin">Who Am I?</h3>
+  <img src=" {% static 'img/harfhohome.jpg' %} " class="img-responsive img-circle margin" style="display:inline" alt="harfho" width="350" height="350">
+  <!-- <img src="bird.jpg"> -->
+  <h3>I'm an adventurer<br></h3>
+  <p>computer Scientist</p>
+</div>
+
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
+  <h3 class="margin">What Am I?</h3>
+  <p>Am creative,<br>Easygoing,<br>Encouraging,<br>Caring,<br>Sharing,<br>Calm,<br>Varsertile<br>&<br> I love learning.
+</div>
+
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center">    
+  <h3 class="margin">Where To Find Me?</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      
+      <a href="https://www.facebook.com/harfho"> <img src=" {% static 'img/facebook.png' %} " class="img-responsive margin" style="width:100%" alt="Image"></a>
+    </div>
+    <div class="col-sm-4"> 
+      
+      <a href="https://www.linkedin.com/in/harfho"><img src=" {% static 'img/linkedin.png' %} " class="img-responsive margin" style="width:100%" alt="Image"></a>
+    </div>
+    <div class="col-sm-4"> 
+      <a href="https://www.twitter.com/harfho"><img src=" {% static 'img/twitter.png' %} " class="img-responsive margin" style="width:100%" alt="Image"></a>
+    
+</div></div>
+<p >
+        {% if request.user.is_authenticated %}
+                <strong>{{request.user.username}}</strong> You haved logged-in
+        {% else %}
+            You are not log-in
+            <p class="lead">
+              <a href="{% url 'user:login' %}" class="btn btn-link">Sign-in</a>or<a href="{% url 'user:register' %}" class="btn btn-link">Register</a>to Add/post Articles</p>
+        {% endif %}
+
+</p></div>
+{% endblock body %}

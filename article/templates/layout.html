@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    
+
+    <link rel="stylesheet" href="{% static 'cs/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+ 
+    <link rel="stylesheet" href="{% static 'cs/footer-basic-centered.css' %}">
+    
+
+
+    <title>HARFHO BLOG</title>
+</head>
+<body>  
+        {% include "includes/navbar.html" %}
+        
+        
+
+        <div style = "margin-top : 100px; margin-bottom:100px;" class = "container">
+                
+            {% if messages %}
+                
+                    {% for message in messages %}
+                    {% if message.tags == "info" %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                    {% else %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+
+                    {% endif %}
+
+
+                    {% endfor %}
+                
+                {% endif %}
+
+            {% block body %}
+            
+            {% endblock body %}
+
+        </div>
+      
+
+
+      <script src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
+      
+      <script src="{% static 'js/bootstrap.min.js'%}"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script type="{% static 'js/popper.min.js.js'%}"></script>
+
+
+
+
+    
+{% block footer%}      
+    <div>
+  
+       <footer class="footer-basic-centered">
+
+
+
+      
+      <p class="footer-company-name">HARFHO BLOG</p>
+
+      <p class="footer-links">
+
+        <a href="/">Home</a>
+        ---
+        <a href="/articles">Blog</a>
+        ---
+        <!-- <a href="#">Pricing</a> -->
+        <!-- --- -->
+        <a href="/about">About</a>
+        ---
+        <!-- <a href="#">Faq</a> -->
+        <!-- --- -->
+        <a href="/contact">Contact</a>
+      </p>
+
+      <p class="footer-company-name">HARFHO BLOG &copy; 2019</p>
+
+
+
+    </footer>
+
+
+   </div>    
+{% endblock footer %}
+
+</body>,
+</html>
