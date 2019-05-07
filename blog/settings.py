@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     
-    "article",
-    "user",
+    "article.apps.ArticleConfig",
+    "user.apps.UserConfig",
     'crispy_forms',
     "ckeditor",
     'django_cleanup',
@@ -158,7 +158,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # EMAIL_PORT = 1025
 
 
-# This work it send message / Receive message
+# This work,it send message / Receive message
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -168,3 +168,6 @@ EMAIL_HOST_USER = 'harfho77@gmail.com' #os.environ.get('EMAIL_USER') #
 EMAIL_HOST_PASSWORD = '@googlemein77'#os.environ.get('EMAIL_PASS') #'@googlemein77'
 # DEFAULT_FROM_EMAIL  = EMAIL_HOST_USER
 # DEFAULT_TO_EMAIL  = EMAIL_HOST_USER
+
+LOGIN_REDIRECT_URL = '/articles'
+LOGIN_URL = 'user:login'

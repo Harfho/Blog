@@ -2,12 +2,13 @@
 
 {% block body %}
 <div class="row">
+  <div class="col-md-8 offset-md-2">
 
     <!-- Post Content Column -->
-    <div class="col-lg-4">
+    <div class="col-lg-10">
 
       <!-- Title -->
-      <h3 class="mt-4">{{article.title}}</h3>
+      <h3 class="mt-2">{{article.title}}</h3>
 
       <!-- Author -->
       <p class="lead">
@@ -19,8 +20,6 @@
 
       <!-- Date/Time -->
       <p>{{article.created_date}}</p>
-
-      <hr>
 
       <!-- Preview Image -->
       {% if article.article_image %}
@@ -81,7 +80,7 @@
               </div>
               <button type="submit" class="btn btn-danger">Summit</button>
             </form>
-          </div></div></div>
+          </div></div></div></div>
       
 
 {% endblock body %}

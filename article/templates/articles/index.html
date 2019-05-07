@@ -3,15 +3,7 @@
 
 {% block body %}
 <head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Simply Me</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <style>
+    <style>
   body {
     font: 20px Montserrat, sans-serif;
     line-height: 1.8;
@@ -36,8 +28,8 @@
     color: #fff;
   }
   .container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding-top: 10px;
+    padding-bottom:1px;
   }
   .navbar {
     padding-top: 15px;
@@ -58,8 +50,8 @@
 
 
 <!-- First Container -->
-<div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Who Am I?</h3>
+<div class="container-fluid bg-3 text-center">
+  <h3 class="margin bg-1">Who Am I?</h3>
   <img src=" {% static 'img/harfhohome.jpg' %} " class="img-responsive img-circle margin" style="display:inline" alt="harfho" width="350" height="350">
   <!-- <img src="bird.jpg"> -->
   <h3>I'm an adventurer<br></h3>
@@ -68,26 +60,26 @@
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
-  <h3 class="margin">What Am I?</h3>
+  <h3 class="margin bg-1">What Am I?</h3>
   <p>Am creative,<br>Easygoing,<br>Encouraging,<br>Caring,<br>Sharing,<br>Calm,<br>Varsertile<br>&<br> I love learning.
 </div>
 
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">Where To Find Me?</h3><br>
+  <h3 class="margin bg-1">Where To Find Me?</h3><br>
   <div class="row">
     <div class="col-sm-4">
       
-      <a href="https://www.facebook.com/harfho"> <img src=" {% static 'img/facebook.png' %} " class="img-responsive margin" style="width:100%" alt="Image"></a>
+      <a href="https://www.facebook.com/harfho"> <img src=" {% static 'img/facebook.png' %} " class="img-responsive margin" style="width:50%" alt="Image"></a>
     </div>
     <div class="col-sm-4"> 
       
-      <a href="https://www.linkedin.com/in/harfho"><img src=" {% static 'img/linkedin.png' %} " class="img-responsive margin" style="width:100%" alt="Image"></a>
+      <a href="https://www.linkedin.com/in/harfho"><img src=" {% static 'img/linkedin.png' %} " class="img-responsive margin" style="width:50%" alt="Image"></a>
     </div>
     <div class="col-sm-4"> 
-      <a href="https://www.twitter.com/harfho"><img src=" {% static 'img/twitter.png' %} " class="img-responsive margin" style="width:100%" alt="Image"></a>
-    
-</div></div>
+      <a href="https://www.twitter.com/harfho"><img src=" {% static 'img/twitter.png' %} " class="img-responsive margin" style="width:50%" alt="Image"></a>
+    </div></div>
+
 <p >
         {% if request.user.is_authenticated %}
                 <strong>{{request.user.username}}</strong> You haved logged-in
@@ -97,5 +89,8 @@
               <a href="{% url 'user:login' %}" class="btn btn-link">Sign-in</a>or<a href="{% url 'user:register' %}" class="btn btn-link">Register</a>to Add/post Articles</p>
         {% endif %}
 
-</p></div>
+</p>
+
+</div>
+
 {% endblock body %}

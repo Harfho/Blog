@@ -1,15 +1,17 @@
 from django import forms
+from django.contrib.auth.models import User
+from .models import Profile
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label = "User_name")
+    username = forms.CharField(label = "User-name")
     password = forms.CharField(label = "Password",widget = forms.PasswordInput)
 
 
 class RegisterForm(forms.Form):
-    username  = forms.CharField(max_length = 50,label = "User_name")
-    email = forms.EmailField(required=False,label='email')
+    username  = forms.CharField(max_length = 100,label = "User-name")
+    email = forms.EmailField(required=False,label='Email')
     password = forms.CharField(max_length=20,label = "Password",widget = forms.PasswordInput)
-    confirm = forms.CharField(max_length=20,label ="Confirm_Password",widget = forms.PasswordInput)
+    confirm = forms.CharField(max_length=20,label ="Confirm-Password",widget = forms.PasswordInput)
     
     def clean(self):
         username = self.cleaned_data.get("username")
@@ -28,3 +30,15 @@ class RegisterForm(forms.Form):
         return values
 
 
+class UserUpdateForm(forms.ModelForm):
+    email=forms.EmailField()
+    
+    class Meta:
+        model = User
+        fields = ['username','email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']    

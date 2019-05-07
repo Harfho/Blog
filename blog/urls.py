@@ -27,6 +27,7 @@ urlpatterns = [
     path('',views.index,name = "index"),
     path('about/',views.about,name = "about"),
     path('contact/',views.contact,name = "contact"),
+
     path('articles/',include("article.urls")),
     path('user/',include("user.urls")),
 
@@ -51,5 +52,7 @@ urlpatterns = [
                     template_name='password_reset_complete.html'), 
             name = "password_reset_complete"),
 
-]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

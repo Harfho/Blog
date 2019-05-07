@@ -1,6 +1,4 @@
-from django.shortcuts import render,HttpResponse,redirect,get_object_or_404,reverse
-from .forms import ArticleForm,ContactForm
-from .models import Article,Comment
+from django.shortcuts import (render,HttpResponse,redirect,get_object_or_404,reverse)
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -8,17 +6,22 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
+from .forms import ArticleForm,ContactForm
+from .models import Article,Comment
+
+
 # Create your views here.
 
 tem_dir ="articles/"
 
 def articles(request):
     keyword = request.GET.get("keyword")
-
+    articles = Article.objects.all()
+    
     if keyword:
         articles = Article.objects.filter(title__contains = keyword)
         return render(request,"articles.html",{"articles":articles})
-    articles = Article.objects.all()
+    
 
     return render(request,tem_dir+"articles.html",{"articles":articles})
 
@@ -129,7 +132,7 @@ def contact(request):
             content = template.render(context)
 
             email = EmailMessage(
-                "New contact form submission",
+                "New contact form submit from HarfhoBlog ",
                 content,
                 "Harfho Blog" +'',
                 ['harfho77@gmail.com'],
@@ -139,3 +142,5 @@ def contact(request):
             return redirect('contact')
 
     return render(request, tem_dir+'contact.html', {'form': form_class,})
+
+
