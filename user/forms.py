@@ -31,11 +31,11 @@ class RegisterForm(forms.Form):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email=forms.EmailField()
+    email=forms.EmailField(required=False)
     
     class Meta:
         model = User
-        fields = ['username','email']
+        fields = ['username','email',]
 
 
 class ProfileUpdateForm(forms.ModelForm):
