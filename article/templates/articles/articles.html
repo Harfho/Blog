@@ -1,80 +1,69 @@
 {% extends "layout.html" %}
-
+<!-- {% load staticfiles%} -->
 {% block body %}
-
-{%  if not request.user.is_authenticated %}
-        <p  align="center" class="lead btn-basic" align="left" ><a href="{% url 'user:login' %}" class="btn  btn-link">Sign-in</a> or 
-          <a href="{% url 'user:register' %}" class="btn btn-link">Register</a> to Add/post Articles</p>
-
-      {% endif %}
-
-<div class ="row">
-    
-        <div class="col-md-10 offset-md-3">
-            <div class="col-lg-8">
-                <h3>Articles</h3>
-                <hr>
-                </div>
-        </div>
-</div>
-<!-- <div class ="row">
+ <div class ="row">
     <div class="col-md-10 offset-md-3">
         <div class="col-lg-8">
-            <form method="POST">
-                 {% csrf_token %} 
-                <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Find articles...">
+            <form method="GET" action="">{% csrf_token %}
+                <input type="text" name = "keyword" class="input-sm" maxlength="100" placeholder="Find articles...">
               <button type="submit" class="btn btn-primary">Find</button>
             </form>
-      </div>
-    </div>
+            </form>
+      </div></div></div>
 
-</div> -->
-
-
+<br/>
 {% if articles %}
 
 {% for article in articles %}
-<div class="row">
-    <div class="col-md-10 offset-md-3">
+  <div class="col-md-10 offset-md-3">
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <img class="rounded-circle "  src="{% if user.is_authenticated %}
+                                            {{ user.profile.image.url }}
+                                          {% else %}
+                                            {% static 'img/avatar_default.png' %}
 
-    <!-- Post Content Column -->
+                                          {% endif %}
+                                        "
+
+                                    width="100" height="100"/>
+          Published by <a class="mr-2" href="{% url 'user:profile'  %}">  {{article.author.username}}</a>
+
+      <small class="text-muted">{{article.created_date|date:"F d Y"}}</small>
+    </div>
+
+    <h2>
+      <a class="article-title" href="{% url 'article:detail' article.id %}">{{article.title|upper}}
+      </a>
+    </h2>
+
     <div class="col-lg-8">
-
-      <!-- Title -->
-      <a href="{% url 'article:detail' article.id %}"><h2 class="mt-4">{{article.title}}</h2></a> 
-        
-      <!-- Author -->
-      <p class="lead ">
-      <img class="rounded-circle "  src="{{ user.profile.image.url }}" width="100" height="100"/> Published by {{article.author.username}} -
-        
-      <!-- Date/Time -->
-    {{article.created_date|date:"F d Y"}}
-  </p>
-      <hr>
+    <p>
+    
       <!-- Preview Image -->
       {% if article.article_image %}
+      <hr>
       <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}"></a>
       {% endif %}
-     
-
-      <!-- <hr> -->
-
-      <!-- Post Content -->
-      <p class="lead">
+    </p>
+       <hr>
+    
+    <p class="article-content lead">
           {{article.content|safe|truncatewords:50}}
       </p>
 
-      <a style ="float : right;" href="{% url 'article:detail' article.id %}" class ="btn btn-primary">Read more..</a>
-         
-      </div>
-      </div>
-      </div>
+      <a style ="float : right;" href="{% url 'article:detail' article.id %}" class ="btn btn-primary">Read more..</a></div>
+  
+  </div>
+
+</article>
+</div>
 
 {% endfor %}
 
 
 {% else %}
-
 <div class ="row">
     
     <div class="col-md-10 offset-md-3">
@@ -83,22 +72,55 @@
    Article not found
 
 
-<div align="right"> <a href="{% url 'article:dashboard'  %}" class="btn btn-info">Add Articles</a> 
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
+<div align="right"> <a href="{% url 'article:dashboard'  %}" class="btn btn-info">Add Articles</a>
+</div></div></div></div></div>
 
 {% endif %}
+<!-- <div class="pagination">
+  <span class="step-links">
+    {% if object_list.has_previous %}
+      <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+    </span>
 
-<!-- show this if user is login -->
-      
+    {% if object_list.has_next %}
+      <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}">next</a>
+    {% endif %}
+  </span>
+</div>
+ -->
+
+<div style ="float : center;">
+    <ul class="pagination">
+      {% if object_list.has_previous %}
+        <li><a  class="btn btn-outline-info" href="?page={{ object_list.previous_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled btn btn-outline-info"><span>&laquo;</span></li>
+      {% endif %}
+
+      {% for i in object_list.paginator.page_range %}
+        {% if object_list.number == i %}
+          <li class="active btn btn-outline-info "><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+          <li><a class="btn btn-outline-info" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if object_list.has_next %}
+        <li><a class="btn btn-outline-info" href="?page={{ object_list.next_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}">Next</a></li>
+      {% else %}
+        <li class="disabled btn btn-outline-info"><span>Next</span></li>
+      {% endif %}
+  </ul>
+</div>
+
+<!-- show this if user is not login -->
+
       {%  if not request.user.is_authenticated %}
       <hr>
-        <marquee bgcolor='oldlace'><p class="lead" align="left" ><a href="{% url 'user:login' %}" class="btn btn-link">Sign-in</a> or 
+        <marquee bgcolor='oldlace'><p class="lead" align="left" ><a href="{% url 'user:login' %}" class="btn btn-link">Sign-in</a> or
           <a href="{% url 'user:register' %}" class="btn btn-link">Register</a> to Add/post Articles</p></marquee>
 
       {% endif %}

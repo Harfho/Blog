@@ -22,7 +22,4 @@ urlpatterns = [
     path('delete/<int:id>',views.deleteArticle,name = "delete"),
     path('comment/<int:id>',views.addComment,name = "comment"),
     
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

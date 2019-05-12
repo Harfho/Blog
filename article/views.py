@@ -1,7 +1,8 @@
 from django.shortcuts import (render,HttpResponse,redirect,get_object_or_404,reverse)
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
@@ -15,15 +16,43 @@ from .models import Article,Comment
 tem_dir ="articles/"
 
 def articles(request):
-    keyword = request.GET.get("keyword")
+    query = request.GET.get("keyword")
     articles = Article.objects.all()
     
-    if keyword:
-        articles = Article.objects.filter(title__contains = keyword)
-        return render(request,"articles.html",{"articles":articles})
-    
+    if query:
+        articles = Article.objects.filter(
+            Q(title__icontains = query)|
+             Q(content__icontains = query)
+             ).distinct()
+        # render(request,tem_dir+"articles.html",context)
 
-    return render(request,tem_dir+"articles.html",{"articles":articles})
+    paginator = Paginator(articles,10)
+    
+    # page_request_var="page"
+    page = request.GET.get('page',1) 
+    
+    # ?page = 2 
+    articles = paginator.get_page(page)
+    
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+
+
+
+    context ={
+            "articles":articles,
+            "object_list":queryset,
+            # "page_request_var":page_request_var,
+
+                }
+
+    return render(request,tem_dir+"articles.html",context)
+
+
 
 def index(request):
     return render(request,tem_dir+"index.html")
