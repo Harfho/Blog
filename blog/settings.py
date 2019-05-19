@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "ckeditor",
     'django_cleanup',
 
+    'analytical',
+
     
 ]
 
@@ -171,3 +173,7 @@ EMAIL_HOST_PASSWORD = '@googlemein77'#os.environ.get('EMAIL_PASS') #'@googlemein
 
 LOGIN_REDIRECT_URL = '/articles'
 LOGIN_URL = 'user:login'
+
+
+CLICKY_SITE_ID = '101184988'
+# CRAZY_EGG_ACCOUNT_NUMBER = 'xxxxxxxx'

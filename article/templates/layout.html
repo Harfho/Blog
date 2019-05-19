@@ -1,10 +1,17 @@
-<!DOCTYPE html>
+{% load analytical %}
 {% load static %}
+
+<!DOCTYPE html>
+
+
+
 <html lang="en">
 <head>
+    <!-- Django analytics  -->
+     {% analytical_head_top %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
 
     
 
@@ -20,12 +27,27 @@
     
 
 
-    <title>HARFHO BLOG</title>
+   <title>{% block title %} HARFHO BLOG {% endblock %}</title>
+
+  
+
+        
+
+        {% analytical_head_bottom %}
+
 </head>
 <body>  
         {% include "includes/navbar.html" %}
+
+        <!-- Django analytics -->
+        {% analytical_body_top %}
+
+  
+
         
         
+
+        <div class="container">
 
         <div style = "margin-top : 100px; margin-bottom:100px;" class = "container">
                 
@@ -47,9 +69,12 @@
             {% block body %}
             
             {% endblock body %}
+            
+        {% analytical_body_bottom %}
+
 
         </div>
-      
+     
 
 
       <script src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
@@ -60,45 +85,8 @@
      
       <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <script type="{% static 'js/popper.min.js.js'%}"></script>
+  </div>
 
-
-
-
-    
-{% block footer%}      
-    <div>
-  
-       <footer class="footer-basic-centered">
-
-
-
-      
-      <p class="footer-company-name">HARFHO BLOG</p>
-
-      <p class="footer-links">
-
-        <a href="/">Home</a>
-        ---
-        <a href="/articles">Blog</a>
-        ---
-        <!-- <a href="#">Pricing</a> -->
-        <!-- --- -->
-        <a href="/about">About</a>
-        ---
-        <!-- <a href="#">Faq</a> -->
-        <!-- --- -->
-        <a href="/contact">Contact</a>
-      </p>
-
-      <p class="footer-company-name">HARFHO BLOG &copy; 2019</p>
-
-
-
-    </footer>
-
-
-   </div>    
-{% endblock footer %}
-
-</body>,
+{% include "includes/footer.html" %} 
+</body>
 </html>

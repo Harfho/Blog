@@ -4,7 +4,7 @@
 
 <div class ="row">
 
-        <div class="col-md|lg|sm-10 offset-md-3">
+        <div class="col-md offset-md-3">
             <div class="col-lg-8">
                 <h3>Articles</h3>
                 <hr>
@@ -12,7 +12,7 @@
         </div>
 </div>
 <div class ="row">
-    <div class="col-md-10 offset-md-3">
+    <div class="col-md offset-md-3">
         <div class="col-lg-8">
             <form method="GET" action="">{% csrf_token %}
                 <input type="text" name = "keyword" class="input-sm" maxlength="100" placeholder="Find articles...">
@@ -28,24 +28,19 @@
 {% if articles %}
 
 {% for article in articles %}
-<br/>
-    <div class="col-md|lg|sm-10 offset-md-3">
+    <div class="col-md offset-md-3">
 
     <!-- Post Content Column -->
     <div class="col-lg-8">
 
       
-        <br/>
+
       <!-- Author -->
       <p class="lead ">
       <img class="rounded-circle "  src="{% if user.is_authenticated %}
-                                            {{ article.author.profile.image.url }}
-                                          
-                                          {% elif not  user.is_authenticated %}
-                                                {{ article.author.profile.image.url }}
-                                        
-                                            {% else %}
-                                                    {% static 'img/avatar_default.png' %}
+                                            {{ user.profile.image.url }}
+                                          {% else %}
+                                            {% static 'img/avatar_default.png' %}
 
                                           {% endif %}
                                         "
@@ -60,14 +55,14 @@
       <hr>
       <!-- Preview Image -->
       {% if article.article_image %}
-      <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}" width="200" height="200" style="float: right"></a>
+      <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}"></a>
       {% endif %}
 
 
        <hr>
 
       <!-- Post Content -->
-      <p class="lead" align="left">
+      <p class="lead">
           {{article.content|safe|truncatewords:50}}
       </p>
 
@@ -84,7 +79,7 @@
 
 <div class ="row">
 
-    <div class="col-md|lg|sm-10 offset-md-3">
+    <div class="col-md-10 offset-md-3">
         <div class="col-lg-8">
 <div class = "alert alert-danger">
    Article not found
@@ -114,7 +109,7 @@
 </div>
  -->
 
-<br /><br />
+<div style ="float : center;">
     <ul class="pagination">
       {% if object_list.has_previous %}
         <li><a  class="btn btn-outline-info" href="?page={{ object_list.previous_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}">&laquo;</a></li>
