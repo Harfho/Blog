@@ -1,6 +1,0 @@
- django
-django-ckeditor
-django-cleanup
-django-crispy-forms
-django-js-asset
-pillow
